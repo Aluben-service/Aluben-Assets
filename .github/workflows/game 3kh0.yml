@@ -1,0 +1,30 @@
+name: Clone and Push GitLab Repository
+
+on:
+  push:
+    branches:
+      - main  # Change this to your target branch
+
+jobs:
+  clone-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Clone GitLab repository
+        run: |
+          git clone https://gitlab.com/3kh0/3kh0-assets.git temp-assets
+          
+      - name: Copy files to current repo
+        run: |
+          cp -r temp-assets/* .
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git add .
+          git commit -m "Update from GitLab assets" || echo "No changes to commit"
+          git push origin main  # Change 'main' to your target branch if needed
