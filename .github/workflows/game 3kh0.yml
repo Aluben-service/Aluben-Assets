@@ -1,10 +1,8 @@
 name: Clone and Push GitLab Repository
 
 on:
-  push:
-    branches:
-      - main  # Change this to your target branch
-
+  workflow_dispatch:
+  
 jobs:
   clone-and-push:
     runs-on: ubuntu-latest
